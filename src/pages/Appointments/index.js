@@ -14,3 +14,6 @@ class AppointmentsIndex extends Component {
 }
 
 export default AppointmentsIndex;
+
+
+
