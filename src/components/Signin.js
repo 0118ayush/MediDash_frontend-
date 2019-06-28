@@ -1,6 +1,10 @@
+// react components
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
+
+// apis 
+import { signinFetch } from "../services/apis"
 
 class Signin extends Component {
 
@@ -19,14 +23,7 @@ class Signin extends Component {
 
     handleSubmit = (e) =>{
         e.preventDefault()
-        return fetch("http://localhost:3001/signin", {
-            method: "POST", 
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password
-            })
-        }).then(resp => resp.json())
+        signinFetch(this.state.email, this.state.password)
         .then(data => {
                 if (data.error){
                     alert(data.error)
