@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 // APIs
-import { validate } from "../services/apis";
+import { validate} from "../services/apis";
 
 // Components
 import NavbarTop from "./NavbarTop";
@@ -10,21 +10,13 @@ import NavbarTop from "./NavbarTop";
 // Pages
 import Home from "../pages/Main/Home.js";
 import Signin from "./Signin.js";
-import Dashboard from "../pages/Dashboard/index";
-import Appointments from "../pages/Appointments/index";
-import Doctors from "../pages/Doctors/index";
-import Patients from "../pages/Patients/index";
 
-// Functions
-import {currentDoctorFetch, currentAppointmentsFetch, currentPatientsFetch} from "../services/apis"
+
 
 
 class App extends Component {
   state = {
-    currentUser: null, 
-    currentDoctor: null,
-    appointments: [], 
-    patients: []
+    currentUser: null
   };
 
   signin = user => {
@@ -35,13 +27,6 @@ class App extends Component {
     this.props.history.push("/");
   };
 
-  signout = () => {
-    this.setState({
-      currentUser: ""
-    });
-    localStorage.removeItem("token");
-    this.props.history.push("/signin");
-  };
 
   componentDidMount() {
     if (localStorage.token) {
@@ -55,27 +40,15 @@ class App extends Component {
     }
   }
 
-  currentDoctorToState = () => {
-    currentDoctorFetch().then(doctor =>
-      this.setState({
-        currentDoctor: doctor
-      })
-    );
+  signout = () => {
+    this.setState({
+      currentUser: ""
+    });
+    localStorage.removeItem("token");
+    this.props.history.push("/signin");
   };
 
-  currentAppointmentsToState = () => {
-    currentAppointmentsFetch().then(appointments =>
-      this.setState({
-        appointments
-      })
-    );
-  };
-
-  currentPatientsToState = () => {
-    currentPatientsFetch().then(patients => this.setState({
-        patients
-    }))
-  }
+  
 
   render() {
     return (
@@ -92,20 +65,7 @@ class App extends Component {
         <Route
           exact
           path="/"
-          component={props => (
-            <Home 
-            currentUser={this.state.currentUser} 
-            currentDoctorToState={this.currentDoctorToState} 
-            currentAppointmentsToState={this.currentAppointmentsToState} 
-            currentPatientsToState={this.currentPatientsToState} 
-            {...props} />
-          )}
-        />
-
-        <Route exact path="/dashboard" component={() => <Dashboard />} />
-        <Route path="/appointments" component={() => <Appointments />} />
-        <Route exact path="/doctors" component={() => <Doctors />} />
-        <Route exact path="/patients" component={() => <Patients />} />
+          component={props => <Home currentUser={this.state.currentUser} />}/>
       </div>
     );
   }

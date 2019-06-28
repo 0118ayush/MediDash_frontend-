@@ -1,36 +1,74 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 
 
-// import Header from "./Header.js"
+
 import Navbartop from "../../components/NavbarTop";
-import Sidebar from "../../components/Sidebar/index.js";
+import Sidebar from "../../components/Sidebar"
 
 // Pages
+import Dashboard from "../Dashboard/index";
+import Appointments from "../Appointments/index";
+import Doctors from "../Doctors/index";
+import Patients from "../Patients/index";
+
+// APIs 
+import {currentDoctorFetch, currentAppointmentsFetch, currentPatientsFetch} from "../../services/apis" 
+
 
 class Home extends Component {
   
 
-  
+  state = {
+    currentDoctor: "",
+    appointments: [],
+    patients: []
+  }
 
-  componentDidMount() {
+  componentDidMount(){
     if (!this.props.currentUser) {
       this.props.history.push("/signin");
     } else {
-      this.props.currentDoctorToState();
-      this.props.currentAppointmentsToState();
-      this.props.currentPatientsToState()
+      this.currentDoctorToState();
+      this.currentAppointmentsToState();
+      this.currentPatientsToState()
     }
+  }
+
+  currentDoctorToState = () => {
+    currentDoctorFetch().then(doctor =>
+      this.setState({
+        currentDoctor: doctor
+      })
+    );
+  };
+
+  currentAppointmentsToState = () => {
+    currentAppointmentsFetch().then(appointments =>
+      this.setState({
+        appointments
+      })
+    );
+  };
+
+  currentPatientsToState = () => {
+    currentPatientsFetch().then(patients => this.setState({
+        patients
+    }))
   }
 
   render() {
     return (
       <div>
-        <Sidebar expandUserInfo={this.expandUserInfo} />
         This is the Homepage!
+        <Route path="/dashboard" component={() => <Dashboard />} />
+        <Route path="/appointments" component={() => <Appointments />} />
+        <Route path="/doctors" component={() => <Doctors />} />
+        <Route path="/patients" component={() => <Patients />} />
+        <Sidebar currentDoctor={this.state.currentDoctor} />
       </div>
     );
   }
 }
 
-export default Home;
+export default withRouter(Home);
