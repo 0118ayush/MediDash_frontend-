@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Collapse } from 'react-bootstrap';
 import cx from 'classnames';
-
+import { Link } from 'react-router-dom';
  
   class UserInfo extends Component {
 
@@ -15,7 +15,7 @@ import cx from 'classnames';
       return (
         <div className="user-wrapper">
           <div className="user">
-            <img src={currentDoctor.profile_pic} alt={currentDoctor.last_name} className="photo" />
+            <img src={currentDoctor.profile_pic} alt={currentDoctor.last_name} className="photo" height="200px" />
             <div className="userinfo">
               <div className="username">
                 Dr {currentDoctor.last_name}
@@ -23,16 +23,12 @@ import cx from 'classnames';
               <div className="title">{currentDoctor.specialty}</div>
             </div>
             <span
-              onClick={() => this.setState({ isShowingUserMenu: !this.state.isShowingUserMenu })}
-              className={cx("pe-7s-angle-down collapse-arrow", {
-                active: isShowingUserMenu
-              })}></span>
+              onClick={() => this.setState({ isShowingUserMenu: !this.state.isShowingUserMenu })}>V</span>
           </div>
           <Collapse in={isShowingUserMenu}>
             <ul className="nav user-nav">
-              <li><a href="#">My Profile</a></li>
-              <li><a href="#">Edit Profile</a></li>
-              <li><a href="#">Settings</a></li>
+              <Link to="/myprofile">My Profile</Link>
+              <Link to="/editprofile">Edit Profile</Link>
             </ul>
           </Collapse>
         </div>

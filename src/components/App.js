@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 
 // APIs
-import { validate} from "../services/apis";
+import { validate } from "../services/apis";
 
 // Components
 import NavbarTop from "./NavbarTop";
@@ -11,22 +11,22 @@ import NavbarTop from "./NavbarTop";
 import Home from "../pages/Main/Home.js";
 import Signin from "./Signin.js";
 
-
-
-
 class App extends Component {
   state = {
     currentUser: null
   };
 
   signin = user => {
-    this.setState({
-      currentUser: user
-    });
-    localStorage.setItem("token", user.token);
-    this.props.history.push("/");
+    this.setState(
+      {
+        currentUser: user
+      },
+      () => {
+        localStorage.setItem("token", user.token);
+        this.props.history.push("/home");
+      }
+    );
   };
-
 
   componentDidMount() {
     if (localStorage.token) {
@@ -48,8 +48,6 @@ class App extends Component {
     this.props.history.push("/signin");
   };
 
-  
-
   render() {
     return (
       <div>
@@ -63,9 +61,11 @@ class App extends Component {
           component={props => <Signin signin={this.signin} />}
         />
         <Route
-          exact
-          path="/"
-          component={props => <Home currentUser={this.state.currentUser} />}/>
+          path="/home"
+          component={props => (
+            <Home {...props} currentUser={this.state.currentUser} />
+          )}
+        />
       </div>
     );
   }

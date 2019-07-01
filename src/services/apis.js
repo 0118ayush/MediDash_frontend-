@@ -3,8 +3,9 @@ const baseURL = "http://localhost:3001/"
 const signinURL = baseURL + "signin"
 const validationURL = baseURL + "validate"
 const currentUserURL = baseURL + "user"
-const currentAppointmentsURL = baseURL + "appointments"
-const currentPatientsURL = baseURL + "patients"
+const myAppointmentsURL = baseURL + "myappointments"
+const myPatientsURL = baseURL + "mypatients"
+const allAppointmentsURL = baseURL + "appointments"
 
 
 export function signinFetch(email, password){
@@ -31,18 +32,23 @@ export function currentDoctorFetch(){
 
 
 export function currentAppointmentsFetch(){
-    return fetch(currentAppointmentsURL, {
+    return fetch(myAppointmentsURL, {
         headers: {"Authorisation": localStorage.token}
     })
     .then(resp => resp.json())
 }
 
 export function currentPatientsFetch(){
-    return fetch(currentPatientsURL, {
+    return fetch(myPatientsURL, {
         headers: {"Authorisation": localStorage.token}
     })
     .then(resp => resp.json())
 }
 
+export function FetchAllAppointments(){
+    return fetch(allAppointmentsURL)
+    .then(resp => resp.json())
+}
 
-export default { signinFetch, validate, currentDoctorFetch, currentPatientsFetch }
+
+export default { signinFetch, validate, currentDoctorFetch, currentPatientsFetch, FetchAllAppointments }
