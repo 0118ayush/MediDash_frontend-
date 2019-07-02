@@ -14,39 +14,59 @@ import Appointments from "../Appointments/index";
 import {
   currentDoctorFetch,
   currentAppointmentsFetch,
-  currentPatientsFetch, 
-  FetchAllAppointments
+  currentPatientsFetch,
+  fetchAllAppointments,
+  deleteAppointmentBackend,
+  fetchAllPatients,
+  fetchAllDoctors
 } from "../../services/apis";
-
 
 class Home extends Component {
   state = {
     currentDoctor: "",
     myAppointments: [],
-    patients: [], 
-    allAppointments: []
+    myPatients: [],
+    allAppointments: [],
+    allPatients: [],
+    allDoctors: []
   };
 
   componentDidMount() {
     if (!this.props.currentUser) {
       this.props.history.push("/signin");
     } else {
-      this.allAppointmentsToState()
+      this.allAppointmentsToState();
+      this.myAppointmentsToState();
       this.currentDoctorToState();
-      this.currentAppointmentsToState();
-      this.currentPatientsToState();
-      
+      this.myPatientsToState();
+      this.allPatientsToState();
+      this.allDoctorsToState();
     }
   }
 
+  allDoctorsToState = () => {
+    fetchAllDoctors().then(doctors =>
+      this.setState({
+        allDoctors: doctors
+      })
+    );
+  };
+
+  allPatientsToState = () => {
+    fetchAllPatients().then(patients =>
+      this.setState({
+        allPatients: patients
+      })
+    );
+  };
+
   allAppointmentsToState = () => {
-    FetchAllAppointments().then(appointments =>
+    fetchAllAppointments().then(appointments =>
       this.setState({
         allAppointments: appointments
       })
     );
   };
-
 
   currentDoctorToState = () => {
     currentDoctorFetch().then(doctor =>
@@ -56,7 +76,7 @@ class Home extends Component {
     );
   };
 
-  currentAppointmentsToState = () => {
+  myAppointmentsToState = () => {
     currentAppointmentsFetch().then(appointments =>
       this.setState({
         myAppointments: appointments
@@ -64,28 +84,55 @@ class Home extends Component {
     );
   };
 
-  currentPatientsToState = () => {
+  myPatientsToState = () => {
     currentPatientsFetch().then(patients =>
       this.setState({
-        patients
+        myPatients: patients
       })
     );
   };
 
+  deleteMyAppointmentFrontend = deletedAppointment => {
+    const remainingAppointments = this.state.myAppointments.filter(
+      appointment => appointment.id !== deletedAppointment.id
+    );
+    this.setState({
+      myAppointments: remainingAppointments
+    });
+    deleteAppointmentBackend(deletedAppointment);
+  };
+
   render() {
-
-
-    const {allAppointments, currentDoctor, myAppointments} = this.state
+    const {
+      allAppointments,
+      currentDoctor,
+      myAppointments,
+      allPatients,
+      allDoctors, 
+      myPatients
+    } = this.state;
+    const { deleteMyAppointmentFrontend } = this;
     return (
       <div>
         This is the Homepage!
         <Route
           path={`${this.props.match.url}/appointments`}
-          component={props => <Appointments {...props} allAppointments={allAppointments} myAppointments={myAppointments} />}
+          component={props => (
+            <Appointments
+              {...props}
+              allAppointments={allAppointments}
+              myAppointments={myAppointments}
+              deleteMyAppointment={deleteMyAppointmentFrontend}
+              allPatients={allPatients}
+            />
+          )}
         />
         <Route path="/dashboard" component={Dashboard} />
-        <Route path="/doctors" component={Doctors} />
-        <Route path="/patients" component={Patients} />
+        <Route
+          path={`${this.props.match.url}/doctors`}
+          component={props => <Doctors {...props} allDoctors={allDoctors} />}
+        />
+        <Route path={`${this.props.match.url}/patients`} component={props => <Patients {...props} allPatients={allPatients} myPatients={myPatients}/>} />
         <Sidebar currentDoctor={currentDoctor} />
       </div>
     );

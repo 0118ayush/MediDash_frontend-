@@ -90,7 +90,7 @@ class SideNav extends Component {
                     this.isPathActive("/doctors/alldoctors") ? "active" : null
                   }
                 >
-                  <Link to="/doctors/alldoctors">All Doctors</Link>
+                  <Link to="/home/doctors/alldoctors">All Doctors</Link>
                 </li>
               </ul>
             </div>
@@ -120,17 +120,17 @@ class SideNav extends Component {
               <ul className="nav">
                 <li
                   className={
-                    this.isPathActive("/patients/mypatients") ? "active" : null
+                    this.isPathActive("/home/patients/mypatients") ? "active" : null
                   }
                 >
-                  <Link to="/patients/mypatients">My Patients</Link>
+                  <Link to="/home/patients/mypatients">My Patients</Link>
                 </li>
                 <li
                   className={
-                    this.isPathActive("/patients/allpatients") ? "active" : null
+                    this.isPathActive("/home/patients/allpatients") ? "active" : null
                   }
                 >
-                  <Link to="/patients/allpatients">All Patients</Link>
+                  <Link to="/home/patients/allpatients">All Patients</Link>
                 </li>
                 <li
                   className={

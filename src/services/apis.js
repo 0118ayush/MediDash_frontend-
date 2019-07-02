@@ -6,6 +6,8 @@ const currentUserURL = baseURL + "user"
 const myAppointmentsURL = baseURL + "myappointments"
 const myPatientsURL = baseURL + "mypatients"
 const allAppointmentsURL = baseURL + "appointments"
+const allPatientsURL = baseURL + "patients"
+const allDoctorsURL = baseURL + "doctors"
 
 
 export function signinFetch(email, password){
@@ -45,10 +47,27 @@ export function currentPatientsFetch(){
     .then(resp => resp.json())
 }
 
-export function FetchAllAppointments(){
+export function fetchAllAppointments(){
     return fetch(allAppointmentsURL)
     .then(resp => resp.json())
 }
 
+export function fetchAllPatients(){
+    return fetch(allPatientsURL)
+    .then(resp => resp.json())
+}
 
-export default { signinFetch, validate, currentDoctorFetch, currentPatientsFetch, FetchAllAppointments }
+export function fetchAllDoctors(){
+    return fetch(allDoctorsURL)
+    .then(resp => resp.json())
+}
+
+export function deleteAppointmentBackend(deletedAppointment){
+    fetch(`${allAppointmentsURL}/${deletedAppointment.id}`,{
+        method: "DELETE"
+    })
+}
+
+
+
+export default { signinFetch, validate, currentDoctorFetch, currentPatientsFetch, fetchAllAppointments, deleteAppointmentBackend, fetchAllPatients, fetchAllDoctors }

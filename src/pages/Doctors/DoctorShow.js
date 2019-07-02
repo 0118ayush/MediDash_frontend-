@@ -4,7 +4,8 @@ class DoctorShow extends Component {
     render() {
         return (
             <div>
-                Im the Doctor Show!
+                {/* {this.props.doctor.first_name} <br/> */}
+                YOYOYOO
             </div>
         );
     }

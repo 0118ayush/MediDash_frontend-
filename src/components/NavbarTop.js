@@ -9,7 +9,7 @@ class NavbarTop extends Component {
     return (
       <Navbar bg="light" variant="light">
         <Navbar.Brand >
-        <Link to="/"><img src={'https://banner2.kisspng.com/20180501/qtq/kisspng-registered-nurse-nursing-nurse-practitioner-logo-c-golden-medical-symbol-5ae8e7df270aa1.7072635815252131511599.jpg'} alt="logo" height="75px" /></Link> 
+        <Link to="/home"><img src={'https://banner2.kisspng.com/20180501/qtq/kisspng-registered-nurse-nursing-nurse-practitioner-logo-c-golden-medical-symbol-5ae8e7df270aa1.7072635815252131511599.jpg'} alt="logo" height="75px" /></Link> 
         </Navbar.Brand>
         <Nav className="mr-auto">
         <Nav.Link> <Link to="/home">Home</Link> </Nav.Link>
