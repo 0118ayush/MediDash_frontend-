@@ -9,6 +9,7 @@ import Dashboard from "../Dashboard/index";
 import Doctors from "../Doctors/index";
 import Patients from "../Patients/index";
 import Appointments from "../Appointments/index";
+import Profile from "../Profile/Profile"
 
 // APIs
 import {
@@ -114,7 +115,7 @@ class Home extends Component {
     const { deleteMyAppointmentFrontend } = this;
     return (
       <div>
-        This is the Homepage!
+        <Sidebar currentDoctor={currentDoctor} />
         <Route
           path={`${this.props.match.url}/appointments`}
           component={props => (
@@ -133,7 +134,7 @@ class Home extends Component {
           component={props => <Doctors {...props} allDoctors={allDoctors} />}
         />
         <Route path={`${this.props.match.url}/patients`} component={props => <Patients {...props} allPatients={allPatients} myPatients={myPatients}/>} />
-        <Sidebar currentDoctor={currentDoctor} />
+        <Route path={`${this.props.match.url}/profile`} component={props => <Profile {...props} />} />
       </div>
     );
   }

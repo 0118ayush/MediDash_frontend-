@@ -63,11 +63,18 @@ export function fetchAllDoctors(){
 }
 
 export function deleteAppointmentBackend(deletedAppointment){
-    fetch(`${allAppointmentsURL}/${deletedAppointment.id}`,{
+    return fetch(`${allAppointmentsURL}/${deletedAppointment.id}`,{
         method: "DELETE"
     })
 }
 
+export function addPatientBackend(newPatient){
+    return fetch(allPatientsURL, {
+        method: "POST", 
+        headers: {"Content-Type": "application/json"}, 
+        body: JSON.stringify(newPatient)
+    }).then(resp => resp.json())
+}
 
 
-export default { signinFetch, validate, currentDoctorFetch, currentPatientsFetch, fetchAllAppointments, deleteAppointmentBackend, fetchAllPatients, fetchAllDoctors }
+export default { signinFetch, validate, currentDoctorFetch, currentPatientsFetch, fetchAllAppointments, deleteAppointmentBackend, fetchAllPatients, fetchAllDoctors, addPatientBackend }

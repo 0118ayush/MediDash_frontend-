@@ -27,7 +27,7 @@ import { Link } from 'react-router-dom';
           </div>
           <Collapse in={isShowingUserMenu}>
             <ul className="nav user-nav">
-              <Link to="/myprofile">My Profile</Link>
+              <Link to="/home/profile">My Profile</Link>
               <Link to="/editprofile">Edit Profile</Link>
             </ul>
           </Collapse>

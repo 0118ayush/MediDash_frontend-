@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Route} from "react-router-dom"
 import AllPatientList from "./AllPatientList"
 import MyPatientList from "./MyPatientList"
-
+import AddPatientForm from "./AddPatientForm"
 
 
 class Patients extends Component {
@@ -10,9 +10,10 @@ class Patients extends Component {
         const {allPatients, myPatients} = this.props
         return (
             <div>
-                Im the Patient's Index! I will give all functionality of the Patients components!
+                
                 <Route path={`${this.props.match.url}/allpatients`} component={props => <AllPatientList allPatients={allPatients} />}/>
                 <Route path={`${this.props.match.url}/mypatients`} component={props => <MyPatientList myPatients={myPatients} />} />
+                <Route path={`${this.props.match.url}/addpatient`} component ={props => <AddPatientForm allPatients={allPatients} />}/>
             </div>
         );
     }

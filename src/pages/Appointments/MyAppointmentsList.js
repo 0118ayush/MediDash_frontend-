@@ -1,11 +1,12 @@
 import React, { Component } from "react";
+import moment from "moment"
 
 import Table from "react-bootstrap/Table";
 
 class MyAppointmentList extends Component {
 
   render() {
-    //   debugger
+    
     return <div className="container">{
         <Table striped bordered hover>
           <thead>
@@ -13,7 +14,6 @@ class MyAppointmentList extends Component {
               <th>Date</th>
               <th>Start time</th>
               <th>End time</th>
-              <th>Doctor</th>
               <th>Patient</th>
               <th>Condition</th>
               <th>Edit</th>
@@ -24,10 +24,9 @@ class MyAppointmentList extends Component {
             {this.props.myAppointments.map(appointment => {
               return (
                 <tr align="center">
-                  <td>{appointment.date}</td>
-                  <td>{appointment.from_time}</td>
-                  <td>{appointment.to_time}</td>
-                  <td>{appointment.doctor.first_name}</td>
+                  <td>{moment(appointment.date).format("DD/MM/YY")}</td>
+                  <td>{moment(appointment.from_time).format("hh:mm a")}</td>
+                  <td>{moment(appointment.to_time).format('LT')}</td>
                   <td>{appointment.patient.first_name}</td>
                   <td>{appointment.condition}</td>
                   <td>

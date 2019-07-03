@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class Patient extends Component {
+class Profile extends Component {
     render() {
         return (
             <div>
-                Im a single Patient!
+                Im the user profile. 
             </div>
         );
     }
 }
 
-export default Patient;
+export default Profile;

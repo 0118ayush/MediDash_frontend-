@@ -18,7 +18,7 @@ class SideNav extends Component {
     return (
       <ul className="nav">
         <li className={location.pathname === "/" ? "active" : null}>
-          <Link to="/dashboard">
+          <Link to="/home">
             {" "}
             <i className="pe-7s-graph"> </i> <p>Dashboard</p>{" "}
           </Link>
@@ -134,10 +134,10 @@ class SideNav extends Component {
                 </li>
                 <li
                   className={
-                    this.isPathActive("/patients/addpatient") ? "active" : null
+                    this.isPathActive("/home/patients/addpatient") ? "active" : null
                   }
                 >
-                  <Link to="/patients/addpatient">Add Patient</Link>
+                  <Link to="/home/patients/addpatient">Add Patient</Link>
                 </li>
               </ul>
             </div>

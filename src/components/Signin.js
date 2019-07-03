@@ -36,7 +36,7 @@ class Signin extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>

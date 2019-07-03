@@ -12,8 +12,6 @@ class AppointmentsIndex extends Component {
     const { allAppointments, myAppointments, deleteMyAppointment, allPatients } = this.props;
     return (
       <div>
-        I am the entire Appointments functionality. Render lists and Details
-        from here.
         <Route
           path={`${this.props.match.url}/allappointments`}
           component={props => (

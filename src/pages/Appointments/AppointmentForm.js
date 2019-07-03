@@ -1,40 +1,40 @@
 import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import DateTimeField from "react-datepicker"
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import en from "date-fns/locale/en-GB";
 
 class AppointmentForm extends Component {
   state = {
-    startDate: new Date()
+    appointmentDate: new Date()
   };
 
   handleChange(date) {
     this.setState({
-      startDate: date
+      appointmentDate: date
     });
   }
 
+
   render() {
     const patientNames = this.props.allPatients.map(patient =>
-      Object.assign({}, { label: patient.first_name, value: patient.id })
+      Object.assign({}, { label: [<img src={patient.profile_pic} height="20px" />, "  ", patient.first_name + " " + patient.last_name ], value: patient.id })
     );
 
     return (
-      <div>
-        <DatePicker
-          selected={this.state.startDate}
+      <div className="container">
+        <label>Date</label><br/>
+        <DateTimeField
+          selected={this.state.appointmentDate}
+          format="DD-MM-YYYY"
+          viewMode="date"
+          inputFormat="DD-MM-YYYY"
           onChange={date => this.handleChange(date)}
-          dateFormat="MMMM d, yyyy"
         />
         <Form>
-          <Form.Group controlId="exampleForm.ControlInput1">
-            <Form.Label>Date</Form.Label>
-            <Form.Control type="email" placeholder="e.g. 01/07/2019" />
-          </Form.Group>
-          <Form.Group controlId="exampleForm.ControlSelect1">
+          <Form.Group >
             <Form.Label>Condition </Form.Label>
             <Form.Control as="select">
               <option>Cardiovascular</option>
@@ -53,8 +53,10 @@ class AppointmentForm extends Component {
               <option>5</option>
             </Form.Control>
           </Form.Group>
-          <div className="container">
-            <div className="row">
+          <Form.Group>
+          <label>Patient</label>
+          <div >
+            <div >
               <div className="col-md-4" />
               <div className="col-md-4">
                 <Select options={patientNames} />
@@ -62,6 +64,7 @@ class AppointmentForm extends Component {
               <div className="col-md-4" />
             </div>
           </div>
+          </Form.Group>
           <Form.Group controlId="exampleForm.ControlTextarea1">
             <Form.Label>Notes</Form.Label>
             <Form.Control as="textarea" rows="3" />
