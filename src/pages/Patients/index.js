@@ -7,7 +7,7 @@ import AddPatientForm from "./AddPatientForm"
 
 class Patients extends Component {
     render() {
-        const {allPatients, myPatients, handlePatientFormDateChange, handlePatientFormStateUpdates, DOB, addNewPatient} = this.props
+        const {allPatients, myPatients, addNewPatient} = this.props
         return (
             <div>
                 
