@@ -19,7 +19,8 @@ import {
   fetchAllAppointments,
   deleteAppointmentBackend,
   fetchAllPatients,
-  fetchAllDoctors
+  fetchAllDoctors, 
+  addPatientBackend
 } from "../../services/apis";
 
 class Home extends Component {
@@ -103,6 +104,21 @@ class Home extends Component {
     deleteAppointmentBackend(deletedAppointment);
   };
 
+
+  // features and oages they on 
+  // tomorrow and friday 
+  // doctor availability 
+  
+
+  addNewPatient = (newPatient) => {
+    if (this.state.allPatients.find(patient => patient.email === newPatient.email)){
+      alert("Patient already exists.")
+   }else{
+    addPatientBackend(newPatient).then(console.log)
+   }
+  }
+
+  
   render() {
     const {
       allAppointments,
@@ -112,7 +128,7 @@ class Home extends Component {
       allDoctors, 
       myPatients
     } = this.state;
-    const { deleteMyAppointmentFrontend } = this;
+    const { deleteMyAppointmentFrontend, addNewPatient } = this;
     return (
       <div>
         <Sidebar currentDoctor={currentDoctor} />
@@ -133,7 +149,7 @@ class Home extends Component {
           path={`${this.props.match.url}/doctors`}
           component={props => <Doctors {...props} allDoctors={allDoctors} />}
         />
-        <Route path={`${this.props.match.url}/patients`} component={props => <Patients {...props} allPatients={allPatients} myPatients={myPatients}/>} />
+        <Route path={`${this.props.match.url}/patients`} component={props => <Patients {...props} allPatients={allPatients} myPatients={myPatients} addNewPatient={addNewPatient}/>} />
         <Route path={`${this.props.match.url}/profile`} component={props => <Profile {...props} />} />
       </div>
     );

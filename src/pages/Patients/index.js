@@ -7,13 +7,13 @@ import AddPatientForm from "./AddPatientForm"
 
 class Patients extends Component {
     render() {
-        const {allPatients, myPatients} = this.props
+        const {allPatients, myPatients, handlePatientFormDateChange, handlePatientFormStateUpdates, DOB, addNewPatient} = this.props
         return (
             <div>
                 
                 <Route path={`${this.props.match.url}/allpatients`} component={props => <AllPatientList allPatients={allPatients} />}/>
                 <Route path={`${this.props.match.url}/mypatients`} component={props => <MyPatientList myPatients={myPatients} />} />
-                <Route path={`${this.props.match.url}/addpatient`} component ={props => <AddPatientForm allPatients={allPatients} />}/>
+                <Route path={`${this.props.match.url}/addpatient`} component ={props => <AddPatientForm addNewPatient={addNewPatient} />}/>
             </div>
         );
     }

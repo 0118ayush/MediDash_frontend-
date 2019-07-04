@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import DateTimeField from "react-datepicker";
 
-import { addPatientBackend } from "../../services/apis";
+
 
 class AddPatientForm extends Component {
   state = {
@@ -40,57 +40,56 @@ class AddPatientForm extends Component {
     });
   };
 
-  addNewPatient = e => {
-    e.preventDefault();
+  handleSubmit = (e) => {
+    e.preventDefault()
     const {
-      DOB,
-      firstName,
-      lastName,
-      gender,
-      mobile,
-      email,
-      marital,
-      pPic,
-      bGroup,
-      bPressure,
-      chronic,
-      note,
-      age,
-      address,
-      city,
-      province,
-      postcode,
-      ethnicity
-    } = this.state;
+        DOB,
+        firstName,
+        lastName,
+        gender,
+        mobile,
+        email,
+        marital,
+        pPic,
+        bGroup,
+        bPressure,
+        chronic,
+        note,
+        age,
+        address,
+        city,
+        province,
+        postcode,
+        ethnicity
+      } = this.state;
 
-    const newPatient = {
-      first_name: firstName,
-      last_name: lastName,
-      DOB: DOB,
-      ethnicity: ethnicity,
-      gender: gender,
-      age: age,
-      mobile: mobile,
-      email: email,
-      address: address,
-      city: city,
-      province: province,
-      postcode: postcode,
-      marital_status: marital,
-      profile_pic: pPic,
-      blood_group: bGroup,
-      blood_pressure: bPressure,
-      chronic_conditions: chronic,
-      initial_note: note
-    };
-    if (
-      this.props.allPatients.find(patient => patient.email === newPatient.email)
-    ) {
-      alert("Patient already exists.");
-    } else {
-      addPatientBackend(newPatient).then(console.log);
-    }
-  };
+      const newPatient = {
+        first_name: firstName,
+        last_name: lastName,
+        DOB: DOB,
+        ethnicity: ethnicity,
+        gender: gender,
+        age: age,
+        mobile: mobile,
+        email: email,
+        address: address,
+        city: city,
+        province: province,
+        postcode: postcode,
+        marital_status: marital,
+        profile_pic: pPic,
+        blood_group: bGroup,
+        blood_pressure: bPressure,
+        chronic_conditions: chronic,
+        initial_note: note
+      };
+
+      this.props.addNewPatient(newPatient)
+    
+  }
+
+
+  
 
   render() {
     const chronics = [
@@ -345,7 +344,7 @@ class AddPatientForm extends Component {
             </Form.Group>
           </Form.Row>
 
-          <Button variant="primary" type="submit" onClick={this.addNewPatient}>
+          <Button variant="primary" type="submit" onClick={this.handleSubmit}>
             Submit
           </Button>
         </Form>
