@@ -33,10 +33,13 @@ class App extends Component {
       validate().then(data => {
         if (data.error) {
           alert(data.error);
+          this.props.history.push("/signin");
         } else {
           this.signin(data);
         }
       });
+    } else {
+      this.props.history.push("/signin");
     }
   }
 
@@ -62,9 +65,13 @@ class App extends Component {
         />
         <Route
           path="/home"
-          component={props => (
-            <Home {...props} currentUser={this.state.currentUser} />
-          )}
+          render={props =>
+            this.state.currentUser ? (
+              <Home {...props} currentUser={this.state.currentUser} />
+            ) : (
+              <div>Signing in...</div>
+            )
+          }
         />
       </div>
     );

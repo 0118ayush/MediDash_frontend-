@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Table from "react-bootstrap/Table";
-
+import moment from "moment"
 //Components
 
 
@@ -25,11 +25,11 @@ class AllAppointmentsList extends Component {
               {this.props.allAppointments.map(appointment => {
                 return(
                   <tr align="center">
-                    <td>{appointment.date}</td>
-                    <td>{appointment.from_time}</td>
-                    <td>{appointment.to_time}</td>
-                    <td><img height="30px" src={appointment.doctor.profile_pic} />  {appointment.doctor.first_name}</td>
-                    <td>{appointment.patient.first_name}</td>
+                    <td>{moment(appointment.date).format("DD/MM/YY")}</td>
+                    <td>{moment(appointment.from_time).format("hh:mm a")}</td>
+                    <td>{moment(appointment.to_time).format("hh:mm a")}</td>
+                    <td><img width="30px" src={appointment.doctor.profile_pic} />  {appointment.doctor.first_name + " " + appointment.doctor.last_name}</td>
+                    <td><img width="30px" src={appointment.patient.profile_pic} />  {appointment.patient.first_name + " " + appointment.patient.last_name }</td>
                     <td>{appointment.condition}</td>
                   </tr>
                 );

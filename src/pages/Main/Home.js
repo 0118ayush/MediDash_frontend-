@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import { Route, withRouter } from "react-router-dom";
 
 import Navbartop from "../../components/NavbarTop";
-import Sidebar from "../../components/Sidebar";
+import Sidebar from "../../components/Sidebar/index";
 
 // Pages
 import Dashboard from "../Dashboard/index";
 import Doctors from "../Doctors/index";
 import Patients from "../Patients/index";
 import Appointments from "../Appointments/index";
-import Profile from "../Profile/Profile"
+import Profile from "../Profile/Profile";
 
 // APIs
 import {
@@ -19,8 +19,9 @@ import {
   fetchAllAppointments,
   deleteAppointmentBackend,
   fetchAllPatients,
-  fetchAllDoctors, 
-  addPatientBackend
+  fetchAllDoctors,
+  addPatientBackend,
+  addAppointmentBackend
 } from "../../services/apis";
 
 class Home extends Component {
@@ -35,7 +36,7 @@ class Home extends Component {
 
   componentDidMount() {
     if (!this.props.currentUser) {
-      this.props.history.push("/signin");
+      // this.props.history.push("/signin");
     } else {
       this.allAppointmentsToState();
       this.myAppointmentsToState();
@@ -104,34 +105,61 @@ class Home extends Component {
     deleteAppointmentBackend(deletedAppointment);
   };
 
+  // features and oages they on
+  // tomorrow and friday
+  // doctor availability
+  AddNewPatientFrontend = newPatient => {
+    this.setState({
+      allPatients: [newPatient, ...this.state.allPatients]
+    });
+  };
 
-  // features and oages they on 
-  // tomorrow and friday 
-  // doctor availability 
-  
+  addNewPatient = newPatient => {
+    if (
+      this.state.allPatients.find(patient => patient.email === newPatient.email)
+    ) {
+      alert("Patient already exists.");
+    } else {
+      addPatientBackend(newPatient).then(patient =>
+        this.AddNewPatientFrontend(patient)
+      );
+    }
+  };
 
-  addNewPatient = (newPatient) => {
-    if (this.state.allPatients.find(patient => patient.email === newPatient.email)){
-      alert("Patient already exists.")
-   }else{
-    addPatientBackend(newPatient).then(console.log)
-   }
-  }
+  addAppointmentFrontend = newAppointment => {
+    this.setState({
+      myAppointments: [newAppointment, ...this.state.myAppointments]
+    });
+  };
 
-  
+  addNewAppointment = newAppointment => {
+    addAppointmentBackend(newAppointment).then(appointment =>
+      this.addAppointmentFrontend(appointment)
+    );
+  };
+
   render() {
     const {
       allAppointments,
       currentDoctor,
       myAppointments,
       allPatients,
-      allDoctors, 
+      allDoctors,
       myPatients
     } = this.state;
-    const { deleteMyAppointmentFrontend, addNewPatient } = this;
+    const {
+      deleteMyAppointmentFrontend,
+      addNewPatient,
+      addNewAppointment
+    } = this;
     return (
       <div>
         <Sidebar currentDoctor={currentDoctor} />
+        <Route
+          exact
+          path="/home"
+          render={props => <Dashboard myAppointments={myAppointments} />}
+        />
         <Route
           path={`${this.props.match.url}/appointments`}
           component={props => (
@@ -141,16 +169,31 @@ class Home extends Component {
               myAppointments={myAppointments}
               deleteMyAppointment={deleteMyAppointmentFrontend}
               allPatients={allPatients}
+              currentDoctor={currentDoctor}
+              addNewAppointment={addNewAppointment}
             />
           )}
         />
-        <Route path="/dashboard" component={Dashboard} />
+
         <Route
           path={`${this.props.match.url}/doctors`}
           component={props => <Doctors {...props} allDoctors={allDoctors} />}
         />
-        <Route path={`${this.props.match.url}/patients`} component={props => <Patients {...props} allPatients={allPatients} myPatients={myPatients} addNewPatient={addNewPatient}/>} />
-        <Route path={`${this.props.match.url}/profile`} component={props => <Profile {...props} />} />
+        <Route
+          path={`${this.props.match.url}/patients`}
+          component={props => (
+            <Patients
+              {...props}
+              allPatients={allPatients}
+              myPatients={myPatients}
+              addNewPatient={addNewPatient}
+            />
+          )}
+        />
+        <Route
+          path={`${this.props.match.url}/profile`}
+          component={props => <Profile {...props} />}
+        />
       </div>
     );
   }

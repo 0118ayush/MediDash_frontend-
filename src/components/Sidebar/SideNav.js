@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Collapse } from "react-bootstrap";
 import { Link, withRouter } from "react-router-dom";
+import "../../assets/styles/sidebar.css"
+
 
 class SideNav extends Component {
   state = {
@@ -20,7 +22,7 @@ class SideNav extends Component {
         <li className={location.pathname === "/" ? "active" : null}>
           <Link to="/home">
             {" "}
-            <i className="pe-7s-graph"> </i> <p>Dashboard</p>{" "}
+            <i className="menu-item"> </i> <p>Dashboard</p>{" "}
           </Link>
         </li>
 
@@ -37,10 +39,10 @@ class SideNav extends Component {
             }
             data-toggle="collapse"
           >
-            <i className="pe-7s-plugin" />
+            <i className="menu-item" />
             <p>
-              {" "}
-              Appointments <b className="caret" />
+            
+              Appointments 
             </p>
           </a>
           <Collapse in={this.state.appointmentsOpen}>

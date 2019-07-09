@@ -9,7 +9,14 @@ import MyAppointmentsList from "./MyAppointmentsList";
 
 class AppointmentsIndex extends Component {
   render() {
-    const { allAppointments, myAppointments, deleteMyAppointment, allPatients } = this.props;
+    const {
+      allAppointments,
+      myAppointments,
+      deleteMyAppointment,
+      allPatients,
+      currentDoctor,
+      addNewAppointment
+    } = this.props;
     return (
       <div>
         <Route
@@ -18,15 +25,29 @@ class AppointmentsIndex extends Component {
             <AllAppointmentsList allAppointments={allAppointments} />
           )}
         />
-        <Route
-          path={`${this.props.match.url}/myappointments`}
-          component={props => (
-            <MyAppointmentsList myAppointments={myAppointments} deleteMyAppointment={deleteMyAppointment} />
-          )}
-        />
+        {myAppointments.length > 0 ? (
+          <Route
+            path={`${this.props.match.url}/myappointments`}
+            component={props => (
+              <MyAppointmentsList
+                myAppointments={myAppointments}
+                deleteMyAppointment={deleteMyAppointment}
+              />
+            )}
+          />
+        ) : (
+          <div>Loading your appointments...</div>
+        )}
+        )} />
         <Route
           path={`${this.props.match.url}/addappointment`}
-          component={props => <AppointmentForm allPatients={allPatients} />}
+          component={props => (
+            <AppointmentForm
+              allPatients={allPatients}
+              currentDoctor={currentDoctor}
+              addNewAppointment={addNewAppointment}
+            />
+          )}
         />
       </div>
     );

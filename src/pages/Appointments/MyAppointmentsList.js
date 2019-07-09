@@ -27,7 +27,7 @@ class MyAppointmentList extends Component {
                   <td>{moment(appointment.date).format("DD/MM/YY")}</td>
                   <td>{moment(appointment.from_time).format("hh:mm a")}</td>
                   <td>{moment(appointment.to_time).format('LT')}</td>
-                  <td>{appointment.patient.first_name}</td>
+                  <td><img src={appointment.patient.profile_pic} width="30px" />  {appointment.patient.first_name + " " + appointment.patient.last_name}</td>
                   <td>{appointment.condition}</td>
                   <td>
                     <button>Edit</button>
