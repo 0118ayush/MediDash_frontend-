@@ -22,7 +22,12 @@ class MyUpcomingAppointments extends Component {
               this.props.myAppointments.length > 0 ?
                 (this.props.myAppointments
                   .filter(appointment => {
-                    return new Date(appointment.date).toLocaleDateString() >= new Date().toLocaleDateString();
+                    // debugger
+                    // return new Date(appointment.date).toLocaleDateString() >= new Date().toLocaleDateString();
+                    const fromTime = new Date(Date.parse(appointment.date + appointment.from_time.slice(10, appointment.from_time.length - 1)))
+                    const timeNow = new Date(Date.parse(new Date()))
+                    return fromTime > timeNow
+
                   })
                   // Sort via Date + Time
                   .sort((a, b) => {

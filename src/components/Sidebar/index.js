@@ -28,9 +28,9 @@ class Sidebar extends Component {
 
     return (
       <div>
-        <Menu >
+        <Menu tabindex="-1">
 
-          <Col xs={6} md={4} tabindex="0">
+          <Col xs={6} md={4} tabindex="-1">
             <img src={currentDoctor.profile_pic} className="img-circle" height="200px" width="215px" tabindex="-1" />
           </Col>
           <div className="doctor_items">
@@ -38,14 +38,14 @@ class Sidebar extends Component {
             <div align="center">{currentDoctor.specialty}</div>
           </div>
 
-          <ul className="nav">
-            <li>
+          <ul className="nav" >
+            <li tabindex="-1">
               <Link to="/home" >
-                <p className="bm-item" tabindex="-1">Dashboard</p>
+                <p className="bm-item">Dashboard</p>
               </Link>
             </li>
 
-            <li>
+            <li tabindex="-1">
               <a
                 onClick={() =>
                   this.setState({
@@ -79,7 +79,7 @@ class Sidebar extends Component {
               </Collapse>
             </li>
 
-            <li>
+            <li tabindex="-1">
               <a
                 onClick={() =>
                   this.setState({ doctorsOpen: !this.state.doctorsOpen })
@@ -99,7 +99,7 @@ class Sidebar extends Component {
               </Collapse>
             </li>
 
-            <li>
+            <li tabindex="-1">
               <a
                 onClick={() =>
                   this.setState({ patientsOpen: !this.state.patientsOpen })
