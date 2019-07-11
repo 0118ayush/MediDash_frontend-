@@ -126,17 +126,41 @@ class Home extends Component {
     }
   };
 
-  addAppointmentFrontend = newAppointment => {
+  addAppointmentFrontendAndUpdateDoctors = (newAppointment, doctors) => {
     this.setState({
-      myAppointments: [newAppointment, ...this.state.myAppointments]
+      myAppointments: [newAppointment, ...this.state.myAppointments],
+      allDoctors: doctors
     });
   };
 
   addNewAppointment = newAppointment => {
-    addAppointmentBackend(newAppointment).then(appointment =>
-      this.addAppointmentFrontend(appointment)
-    );
-  };
+    addAppointmentBackend(newAppointment)
+      .then(appointment => {
+        fetchAllDoctors().then(doctors => {
+          this.addAppointmentFrontendAndUpdateDoctors(appointment, doctors)
+        })
+      });
+  }
+
+
+  unavailableDoctors = () => {
+    if (this.state.allDoctors.length > 0) {
+      const unavailableDocs = this.state.allDoctors.filter(doctor => doctor.current_appointment !== null)
+      return unavailableDocs
+    } else {
+      return []
+    }
+  }
+
+  availableDoctors = () => {
+    if (this.state.allDoctors.length > 0) {
+      const availableDocs = this.state.allDoctors.filter(doctor => doctor.current_appointment === null)
+      return availableDocs
+    } else {
+      return []
+    }
+
+  }
 
   render() {
     const {
@@ -150,19 +174,28 @@ class Home extends Component {
     const {
       deleteMyAppointmentFrontend,
       addNewPatient,
-      addNewAppointment
+      addNewAppointment,
+      unavailableDoctors,
+      availableDoctors
     } = this;
     return (
       <div>
         <Sidebar currentDoctor={currentDoctor} />
-        <Route
+
+      {
+        myAppointments.length > 0 ?
+        ( <Route
           exact
           path="/home"
-          render={props => <Dashboard myAppointments={myAppointments} />}
-        />
+          render={props => <Dashboard myAppointments={myAppointments} unavailableDoctors={unavailableDoctors} availableDoctors={availableDoctors} />}
+        />)
+        : null
+      }
+       
+
         <Route
           path={`${this.props.match.url}/appointments`}
-          component={props => (
+          render={props => (
             <Appointments
               {...props}
               allAppointments={allAppointments}
@@ -177,11 +210,11 @@ class Home extends Component {
 
         <Route
           path={`${this.props.match.url}/doctors`}
-          component={props => <Doctors {...props} allDoctors={allDoctors} />}
+          render={props => <Doctors {...props} allDoctors={allDoctors} />}
         />
         <Route
           path={`${this.props.match.url}/patients`}
-          component={props => (
+          render={props => (
             <Patients
               {...props}
               allPatients={allPatients}
@@ -192,7 +225,7 @@ class Home extends Component {
         />
         <Route
           path={`${this.props.match.url}/profile`}
-          component={props => <Profile {...props} />}
+          render={props => <Profile {...props} />}
         />
       </div>
     );

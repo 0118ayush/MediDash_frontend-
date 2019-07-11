@@ -31,9 +31,6 @@ class AppointmentForm extends Component {
   };
 
   handleChange(date) {
-    // let options = { year: "numeric", month: "numeric", day: "numeric" };
-    // const dateString = date.toLocaleDateString("en-gb", options);
-    // debugger
     this.setState({
       appointmentDate: date
     });
@@ -52,7 +49,7 @@ class AppointmentForm extends Component {
     };
 
     this.props.addNewAppointment(newAppointment)
-
+    alert("Patient has been saved.")
   };
 
   render() {

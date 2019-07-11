@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import moment from "moment";
 import Table from "react-bootstrap/Table";
-import { debuggerStatement } from "@babel/types";
+import { debuggerStatement, nullLiteralTypeAnnotation } from "@babel/types";
 
 class MyUpcomingAppointments extends Component {
   render() {
@@ -14,45 +14,46 @@ class MyUpcomingAppointments extends Component {
               <th>Start time</th>
               <th>End time</th>
               <th>Patient</th>
-              <th>Condtion</th>
+              <th>Condition</th>
             </tr>
           </thead>
           <tbody>
-            {this.props.myAppointments
-              .filter(appointment => {
-                return new Date(appointment.date) > moment();
-              })
+            {
+              this.props.myAppointments.length > 0 ?
+                (this.props.myAppointments
+                  .filter(appointment => {
+                    return new Date(appointment.date).toLocaleDateString() >= new Date().toLocaleDateString();
+                  })
+                  // Sort via Date + Time
+                  .sort((a, b) => {
+                    const dateA = Date.parse(a.date + a.from_time.slice(10))
+                    const dateB = Date.parse(b.date + b.from_time.slice(10))
+                    if (dateA < dateB) return -1
+                    if (dateA > dateB) return 1
+                    return 0
+                  })
+                  .map(appointment => {
+                    return (
+                      <tr align="center">
+                        <td>{moment(appointment.date).format("DD/MM/YY")}</td>
+                        <td>{moment(appointment.from_time).format("hh:mm a")}</td>
+                        <td>{moment(appointment.to_time).format("hh:mm a")}</td>
+                        <td>
+                          <img width="30px" src={appointment.patient.profile_pic} />{" "}
+                          {appointment.patient.first_name +
+                            " " +
+                            appointment.patient.last_name}
+                        </td>
+                        <td>{appointment.condition}</td>
+                      </tr>
+                    );
+                  }))
 
-              // Sort via Date
-              .sort((a, b) => {
-                if (new Date(a.date) < new Date(b.date)) return -1;
-                if (new Date(a.date) > new Date(b.date)) return 1;
-                return 0;
-              })
-              // Sort via Time
+                : null
 
-              // .sort((a, b) => {
-              //     if (new Date(a.from_time).getTime() < new Date(b.from_time).getTime()) return -1
-              //     if (new Date(a.from_time).getTime() > new Date(b.from_time).getTime()) return 1
-              //     return 0
-              // })
 
-              .map(appointment => {
-                return (
-                  <tr align="center">
-                    <td>{moment(appointment.date).format("DD/MM/YY")}</td>
-                    <td>{moment(appointment.from_time).format("hh:mm a")}</td>
-                    <td>{moment(appointment.to_time).format("hh:mm a")}</td>
-                    <td>
-                      <img width="30px" src={appointment.patient.profile_pic} />{" "}
-                      {appointment.patient.first_name +
-                        " " +
-                        appointment.patient.last_name}
-                    </td>
-                    <td>{appointment.condition}</td>
-                  </tr>
-                );
-              })}
+
+            }
           </tbody>
         </Table>
       </div>

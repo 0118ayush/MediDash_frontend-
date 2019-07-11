@@ -13,7 +13,9 @@ import Signin from "./Signin.js";
 
 class App extends Component {
   state = {
-    currentUser: null
+    currentUser: null,
+    allDoctors: [],
+    allPatients: []
   };
 
   signin = user => {
@@ -61,7 +63,7 @@ class App extends Component {
         <Route
           exact
           path="/signin"
-          component={props => <Signin signin={this.signin} />}
+          render={props => <Signin signin={this.signin} />}
         />
         <Route
           path="/home"
@@ -69,8 +71,8 @@ class App extends Component {
             this.state.currentUser ? (
               <Home {...props} currentUser={this.state.currentUser} />
             ) : (
-              <div>Signing in...</div>
-            )
+                <div>Signing in...</div>
+              )
           }
         />
       </div>

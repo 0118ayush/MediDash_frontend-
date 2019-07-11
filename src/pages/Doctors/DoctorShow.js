@@ -4,8 +4,7 @@ class DoctorShow extends Component {
     render() {
         return (
             <div>
-                {/* {this.props.doctor.first_name} <br/> */}
-                YOYOYOO
+
             </div>
         );
     }

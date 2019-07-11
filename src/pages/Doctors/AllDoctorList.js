@@ -11,7 +11,7 @@ class AllDoctorList extends Component {
     const { allDoctors } = this.props;
     return (
       <div>
-        Im the Doctor List!
+
         <div className="container">
           {
             <Table striped bordered hover>

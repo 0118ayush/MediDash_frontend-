@@ -24,13 +24,13 @@ body {
   /* Our sidebar item styling */
   text-decoration: none;
   margin-bottom: 10px;
-  color: #ffffff;
-  transition: color 0.2s;
+  color: #525050;
+  transition: color 0s;
 }
 
 /* Change color on hover */
 .bm-item:hover {
-  color: rgb(100, 100, 100);
+  color: rgb(68, 81, 255);
 }
 
 /* The rest copied directly from react-burger-menu docs */
@@ -62,7 +62,7 @@ body {
 
 /* General sidebar styles */
 .bm-menu {
-  background: #474afa;
+  background: #ffffffe7;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
 }

@@ -8,6 +8,7 @@ class DepartmentAppoitmentsMonth extends Component {
       labels: ["Cardiology", "Neurological", "Anatomical", "Physiological"],
       datasets: [
         {
+          labels: [],
           data: [12, 19, 3, 5],
           backgroundColor: [
             "rgba(255, 134,159,0.4)",
@@ -67,7 +68,7 @@ class DepartmentAppoitmentsMonth extends Component {
   render() {
     return (
       <MDBContainer>
-        <h3 className="mt-5">Departmental Appointments over Month</h3>
+        <h3 className="mt-5" align="center">Departmental Appointments over Month</h3>
         <Bar
           data={{
             ...this.state.dataBar,

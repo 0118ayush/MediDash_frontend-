@@ -17,7 +17,7 @@ class MyPatientList extends Component {
               <th>Email</th>
               <th>Mobile</th>
               <th># Appointments</th>
-              <th>Edit</th>
+              {/* <th>Edit</th> */}
             </tr>
           </thead>
           <tbody>
@@ -34,9 +34,9 @@ class MyPatientList extends Component {
                   <td>{patient.email}</td>
                   <td>{patient.mobile}</td>
                   <td>{patient.appointments.length}</td>
-                  <td>
+                  {/* <td>
                     <button>Edit</button>
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}

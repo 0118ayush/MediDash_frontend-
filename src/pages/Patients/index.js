@@ -11,8 +11,8 @@ class Patients extends Component {
         return (
             <div>
                 
-                <Route path={`${this.props.match.url}/allpatients`} component={props => <AllPatientList allPatients={allPatients} />}/>
-                <Route path={`${this.props.match.url}/mypatients`} component={props => <MyPatientList myPatients={myPatients} />} />
+                <Route path={`${this.props.match.url}/allpatients`} render={props => <AllPatientList allPatients={allPatients} />}/>
+                <Route path={`${this.props.match.url}/mypatients`} render={props => <MyPatientList myPatients={myPatients} />} />
                 <Route path={`${this.props.match.url}/addpatient`} component ={props => <AddPatientForm addNewPatient={addNewPatient} />}/>
             </div>
         );

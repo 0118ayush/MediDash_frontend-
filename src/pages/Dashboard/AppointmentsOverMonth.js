@@ -54,7 +54,7 @@ class AppointmentsOverMonth extends Component {
 
     return (
       <MDBContainer>
-        <h3 className="mt-5">Appointments over month</h3>
+        <h3 className="mt-5" align="center">Appointments over month</h3>
         <Line data={this.state.dataLine} options={{ responsive: true }} />
       </MDBContainer>
     );

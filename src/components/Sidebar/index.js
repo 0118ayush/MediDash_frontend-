@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import SideNav from "./SideNav";
 import { Collapse } from "react-bootstrap";
 
 import { slide as Menu } from "react-burger-menu";
 import "../../assets/styles/sidebar.css";
+import Image from 'react-bootstrap/Image'
+import Col from 'react-bootstrap/Col'
 
-// import { Header, Icon, Image, Menu, Segment, Sidebar } from 'react-boostrap'
 
-// import {Navbar, Nav, NavItem, Button, Glyphicon, Sidebar} from 'react-bootstrap';
+
+
+
 
 class Sidebar extends Component {
   state = {
@@ -27,14 +29,10 @@ class Sidebar extends Component {
     return (
       <div>
         <Menu >
-          <Link to="/home/profile">
-            <img
-              src={currentDoctor.profile_pic}
-              alt={currentDoctor.last_name}
-              className="photo"
-              height="200px"
-            />
-          </Link>
+
+          <Col xs={6} md={4}>
+            <Image height="200px" width="225px" src={currentDoctor.profile_pic} roundedCircle />
+          </Col>
 
           <div align="center">Dr {currentDoctor.last_name}</div>
           <div align="center">{currentDoctor.specialty}</div>
@@ -42,15 +40,14 @@ class Sidebar extends Component {
           <ul className="nav">
             <li className={location.pathname === "/" ? "active" : null}>
               <Link to="/home">
-                {" "}
-                <i className="menu-item"> </i> <p>Dashboard</p>{" "}
+                <p>Dashboard</p>
               </Link>
             </li>
 
             <li
               className={
                 this.isPathActive("/appointments") ||
-                this.state.appointmentsOpen
+                  this.state.appointmentsOpen
                   ? "active"
                   : null
               }

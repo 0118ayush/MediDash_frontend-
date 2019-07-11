@@ -7,6 +7,12 @@ import AllAppointmentsList from "./AllAppointmentsList";
 import AppointmentForm from "./AppointmentForm";
 import MyAppointmentsList from "./MyAppointmentsList";
 
+
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
+
 class AppointmentsIndex extends Component {
   render() {
     const {
@@ -21,27 +27,39 @@ class AppointmentsIndex extends Component {
       <div>
         <Route
           path={`${this.props.match.url}/allappointments`}
-          component={props => (
+          render={props => (
             <AllAppointmentsList allAppointments={allAppointments} />
           )}
         />
-        {myAppointments.length > 0 ? (
-          <Route
-            path={`${this.props.match.url}/myappointments`}
-            component={props => (
-              <MyAppointmentsList
-                myAppointments={myAppointments}
-                deleteMyAppointment={deleteMyAppointment}
-              />
-            )}
-          />
-        ) : (
-          <div>Loading your appointments...</div>
-        )}
-        )} />
+
+        <Container>
+          <Row className="justify-content-md-center">
+
+            <Col md="auto">
+              {myAppointments.length > 0 ? (
+                // <h2>My Appointments</h2>
+                <Route
+                  path={`${this.props.match.url}/myappointments`}
+                  render={props => (
+                    <MyAppointmentsList
+                      myAppointments={myAppointments}
+                      deleteMyAppointment={deleteMyAppointment}
+                    />
+                  )}
+                />
+              ) : (
+                  <div>Loading your appointments...</div>
+                )}
+            </Col>
+          </Row>
+        </Container>
+
+
+
+
         <Route
           path={`${this.props.match.url}/addappointment`}
-          component={props => (
+          render={props => (
             <AppointmentForm
               allPatients={allPatients}
               currentDoctor={currentDoctor}
@@ -50,7 +68,7 @@ class AppointmentsIndex extends Component {
           )}
         />
       </div>
-    );
+    )
   }
 }
 
