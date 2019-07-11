@@ -24,34 +24,28 @@ class Sidebar extends Component {
   }
 
   render() {
-    const { location, currentDoctor } = this.props;
+    const { currentDoctor } = this.props;
 
     return (
       <div>
         <Menu >
 
-          <Col xs={6} md={4}>
-            <Image height="200px" width="225px" src={currentDoctor.profile_pic} roundedCircle />
+          <Col xs={6} md={4} tabindex="0">
+            <img src={currentDoctor.profile_pic} className="img-circle" height="200px" width="215px" tabindex="-1" />
           </Col>
-
-          <div align="center">Dr {currentDoctor.last_name}</div>
-          <div align="center">{currentDoctor.specialty}</div>
+          <div className="doctor_items">
+            <div align="center">Dr {currentDoctor.last_name}</div>
+            <div align="center">{currentDoctor.specialty}</div>
+          </div>
 
           <ul className="nav">
-            <li className={location.pathname === "/" ? "active" : null}>
-              <Link to="/home">
-                <p>Dashboard</p>
+            <li>
+              <Link to="/home" >
+                <p className="bm-item" tabindex="-1">Dashboard</p>
               </Link>
             </li>
 
-            <li
-              className={
-                this.isPathActive("/appointments") ||
-                  this.state.appointmentsOpen
-                  ? "active"
-                  : null
-              }
-            >
+            <li>
               <a
                 onClick={() =>
                   this.setState({
@@ -64,19 +58,19 @@ class Sidebar extends Component {
               </a>
               <Collapse in={this.state.appointmentsOpen}>
                 <div>
-                  <ul className="nav">
+                  <ul className="list" >
                     <li>
-                      <Link to="/home/appointments/myappointments">
+                      <Link to="/home/appointments/myappointments" className="dropdowns">
                         My Appointments
                       </Link>
                     </li>
                     <li>
-                      <Link to="/home/appointments/allappointments">
+                      <Link to="/home/appointments/allappointments" className="dropdowns">
                         All Appointments
                       </Link>
                     </li>
                     <li>
-                      <Link to="/home/appointments/addappointment">
+                      <Link to="/home/appointments/addappointment" className="dropdowns">
                         Add Appointment
                       </Link>
                     </li>
@@ -85,13 +79,7 @@ class Sidebar extends Component {
               </Collapse>
             </li>
 
-            <li
-              className={
-                this.isPathActive("/doctors") || this.state.doctorsOpen
-                  ? "active"
-                  : null
-              }
-            >
+            <li>
               <a
                 onClick={() =>
                   this.setState({ doctorsOpen: !this.state.doctorsOpen })
@@ -102,28 +90,16 @@ class Sidebar extends Component {
               </a>
               <Collapse in={this.state.doctorsOpen}>
                 <div>
-                  <ul className="nav menu-item" >
-                    <li
-                      className={
-                        this.isPathActive("/doctors/alldoctors")
-                          ? "active"
-                          : null
-                      }
-                    >
-                      <Link to="/home/doctors/alldoctors" >All Doctors</Link>
+                  <ul className="nav menu-item" className="list">
+                    <li>
+                      <Link to="/home/doctors/alldoctors" className="dropdowns" >All Doctors</Link>
                     </li>
                   </ul>
                 </div>
               </Collapse>
             </li>
 
-            <li
-              className={
-                this.isPathActive("/patients") || this.state.patientsOpen
-                  ? "active"
-                  : null
-              }
-            >
+            <li>
               <a
                 onClick={() =>
                   this.setState({ patientsOpen: !this.state.patientsOpen })
@@ -135,33 +111,15 @@ class Sidebar extends Component {
               </a>
               <Collapse in={this.state.patientsOpen}>
                 <div>
-                  <ul className="nav">
-                    <li
-                      className={
-                        this.isPathActive("/home/patients/mypatients")
-                          ? "active"
-                          : null
-                      }
-                    >
-                      <Link to="/home/patients/mypatients">My Patients</Link>
+                  <ul className="nav" className="list">
+                    <li>
+                      <Link to="/home/patients/mypatients" className="dropdowns" >My Patients</Link>
                     </li>
-                    <li
-                      className={
-                        this.isPathActive("/home/patients/allpatients")
-                          ? "active"
-                          : null
-                      }
-                    >
-                      <Link to="/home/patients/allpatients">All Patients</Link>
+                    <li>
+                      <Link to="/home/patients/allpatients" className="dropdowns" >All Patients</Link>
                     </li>
-                    <li
-                      className={
-                        this.isPathActive("/home/patients/addpatient")
-                          ? "active"
-                          : null
-                      }
-                    >
-                      <Link to="/home/patients/addpatient">Add Patient</Link>
+                    <li>
+                      <Link to="/home/patients/addpatient" className="dropdowns" >Add Patient</Link>
                     </li>
                   </ul>
                 </div>
