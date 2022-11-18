@@ -21,7 +21,7 @@
     "react-dates": "^20.2.5",
     "react-dom": "^16.8.6",
     "react-dropdown-input": "^0.1.11",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.1",
     "react-select": "^3.0.4",
     "react-time-picker": "^3.5.2",
     "semantic-ui-calendar-react": "^0.15.0",
